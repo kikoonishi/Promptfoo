@@ -1,12 +1,14 @@
 # Promptfoo
 
-### 特徴
+## 特徴
 - コラボレーション: シェアできる [(リンク)](https://www.promptfoo.dev/docs/usage/sharing/)、Webブラウザでテストの結果が見られる
 - プライベート: ローカルでランするため
 - 違うモデルの比較をできる
 - 複数のプロンプト、変数を表形式で比較できる
-- 複数のテストが行える
-- シナリオを作り、変数を変えてテストできる
+- 複数のテストが行える  [(詳細)](#テスト)
+- シナリオを作り、変数を変えてテストできる [(詳細)](#シナリオ)
+- OpenAI prompt formatのメッセージをサポートしている -> 複数のメッセージ(システムプロンプト含む)をセットすることができる [(詳細)](#チャット形式の会話/スレッド)
+- 既存のテストケースとプロンプトを使用し、新たなテストケースを含むデータセットを作成できる [(詳細)](#データセットの作成)
 - nodeパッケージとして使用可能
 - プロンプトはテキスト、JSON、ファイルパス、マークダウン、などで書くことができる。モデルに合わせてプロンプトを変えることができる
 - プロンプトファンクション: javascriptやpython を使って、ロジックをプロンプトに組み込むことができる　[リンク](https://www.promptfoo.dev/docs/configuration/parameters/#prompt-functions)
@@ -35,7 +37,7 @@ tests:
      language: German
      input: How's it going?
 ```
-#### コマンドライン　[(ドキュメンテーション)](https://www.promptfoo.dev/docs/usage/command-line/)
+## コマンドラインでできること　[(ドキュメンテーション)](https://www.promptfoo.dev/docs/usage/command-line/)
 
 
 - init [directory] - Initialize a new project with dummy files.
@@ -53,7 +55,7 @@ tests:
 - feedback <message> - Send feedback to the Promptfoo developers.
 
 
-#### アサーション [(ドキュメンテーション)](https://www.promptfoo.dev/docs/configuration/expected-outputs/)
+## アサーション [(ドキュメンテーション)](https://www.promptfoo.dev/docs/configuration/expected-outputs/)
 - 必須事項を定義できる。下記の場合、jsonを含んでいないアウトプットは却下される。
   ```
   # jsonを含むか判断する
@@ -79,12 +81,9 @@ tests:
   # outputs.jsonが元々あるアウトプットでasserts.yamlが使用したいアサーションを持つファイル
   promptfoo eval --assertions asserts.yaml --model-outputs outputs.json
   ```
--  
+  
 
-
-
-
-#### シナリオ [(ドキュメンテーション)](https://www.promptfoo.dev/docs/configuration/scenarios/)
+## シナリオ [(ドキュメンテーション)](https://www.promptfoo.dev/docs/configuration/scenarios/)
 ```
 You're a translator.  Translate this into {{language}}: {{input}}
 ---
@@ -133,7 +132,33 @@ scenarios:
             value: '{{expectedHowAreYou}}'
             threshold: 0.90
 ```
-#### テスト
+
+## チャット形式の会話/スレッド (リンク)[https://www.promptfoo.dev/docs/configuration/chat/]
+
+例:
+```
+[
+  { "role": "system", "content": "You are a helpful assistant." },
+  { "role": "user", "content": "Who won the world series in {{ year }}?" }
+]
+```
+yaml形式
+```
+- role: system
+  content: You are a helpful assistant.
+- role: user
+  content: Who won the world series in {{ year }}?
+```
+
+## データセットの作成 (リンク) [https://www.promptfoo.dev/docs/configuration/datasets/]
+- ``` promptfoo generate dataset ``` はプロンプトとすでにあるテストケースを使用し、新たなテストケースを作る。
+- そのテストケースはさらなるevaluationに使用することができる
+- データセットをファイルに書き起こすこともできる
+- データセットを編集することもできる
+- データセット作成をカスタマイズする [詳細](https://www.promptfoo.dev/docs/configuration/datasets/#customize-the-generation-process)
+
+
+## テスト
 複数のテストを行う際に、.yamlファイルにリストし、それをpromptfooconfig.yamlにファイルパスを入れることができる
 
 ```
