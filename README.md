@@ -150,7 +150,7 @@ yaml形式
   content: Who won the world series in {{ year }}?
 ```
 
-## データセットの作成 (リンク) [https://www.promptfoo.dev/docs/configuration/datasets/]
+## データセットの作成 [リンク](https://www.promptfoo.dev/docs/configuration/datasets/)
 - ``` promptfoo generate dataset ``` はプロンプトとすでにあるテストケースを使用し、新たなテストケースを作る。
 - そのテストケースはさらなるevaluationに使用することができる
 - データセットをファイルに書き起こすこともできる
