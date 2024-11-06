@@ -183,6 +183,10 @@ tests:
 テストをgoogle sheetsから読み込むこともできる。
 テストファイルにアサーションを含むこともできる。[リンク](https://www.promptfoo.dev/docs/configuration/expected-outputs/#load-assertions-from-csv)
 
+# LLM red teaming 
+[リンク](https://www.promptfoo.dev/docs/red-team/)
+LLM appは
+
 ## Installation
 install grobally npm:
 ```
